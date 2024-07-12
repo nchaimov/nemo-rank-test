@@ -4,6 +4,12 @@ This is a simple NeMo test which initializes NeMo by running a Trainer that does
 
 First, ensure that both the `nemo` module and the `mpi4py` module are available in your environment. NeMo uses `$SLURM_PROCID` or `$OMPI_COMM_WORLD_RANK` to get the rank, whereas PyTorch (which is used by NeMo) uses `mpi4py`, so both must be working for the test to succeed.
 
+If mpi4py can't be found, an error will be printed:
+
+<pre>
+<b>[hostname=gilgamesh] Error: unable to load mpi4py: No module named 'mpi4py'</b>
+</pre>
+
 Running `run-2node-mpi-without-env-var.sh` on Illyad (which runs two ranks, one on Illyad and one on Gilgamesh) will print at the end of execution
 
 <pre>
@@ -25,3 +31,6 @@ Running `run-2node-mpi-with-env-var.sh` uses the `launch_nemo` script to set `OM
 </pre>
 
 NeMo and PyTorch now agree on rank number.
+
+If the test is successful, all ranks will print the success message.
+The test is considered failed if any rank prints the error.
