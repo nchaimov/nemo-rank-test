@@ -1,0 +1,5 @@
+#!/bin/bash
+if [ "x$PMI_RANK" != "x"  -a "x$OMPI_COMM_WORLD_RANK" == "x" ]; then
+    export OMPI_COMM_WORLD_RANK=$PMI_RANK
+    $*
+fi

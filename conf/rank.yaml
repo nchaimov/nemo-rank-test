@@ -1,0 +1,8 @@
+trainer:
+  devices: -1 
+  num_nodes: 1
+  accelerator: gpu
+  precision: bf16-mixed
+  enable_checkpointing: False
+  logger: False
+
