@@ -4,12 +4,12 @@ This is a simple NeMo test which initializes NeMo by running a Trainer that does
 
 Running `run-2node-mpi-without-env-var.sh` on Illyad (which runs two ranks, one on Illyad and one on Gilgamesh) will print at the end of execution
 
-```
+<pre>
 [hostname=illyad], nemo_rank=0, torch_rank=0 Hello world!
 [hostname=illyad] Success: NeMo and PyTorch agree on rank number
 [hostname=gilgamesh, nemo_rank=0, torch_rank=1] Hello world!
-[hostname=gilgamesh] Error: NeMo and PyTorch don't agree on rank number
-```
+<b>[hostname=gilgamesh] Error: NeMo and PyTorch don't agree on rank number</b>
+</pre>
 
 PyTorch has the correct ranks, whereas NeMo incorrectly gets rank 0 for every rank because it it hard-coded to look for only Slurm or Open MPI environment variables.
 
