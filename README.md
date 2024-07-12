@@ -7,7 +7,7 @@ Running `run-2node-mpi-without-env-var.sh` on Illyad (which runs two ranks, one 
 <pre>
 [hostname=illyad], nemo_rank=0, torch_rank=0 Hello world!
 [hostname=illyad] Success: NeMo and PyTorch agree on rank number
-[hostname=gilgamesh, nemo_rank=0, torch_rank=1] Hello world!
+[hostname=gilgamesh] nemo_rank=0, torch_rank=1 Hello world!
 <b>[hostname=gilgamesh] Error: NeMo and PyTorch don't agree on rank number</b>
 </pre>
 
@@ -15,11 +15,11 @@ PyTorch has the correct ranks, whereas NeMo incorrectly gets rank 0 for every ra
 
 Running `run-2node-mpi-with-env-var.sh` uses the `launch_nemo` script to set `OMPI_COMM_WORLD_RANK=$PMI_RANK`. Now the output is:
 
-```
+<pre>
 [hostname=illyad], nemo_rank=0, torch_rank=0 Hello world!
 [hostname=illyad] Success: NeMo and PyTorch agree on rank number
-[hostname=gilgamesh, nemo_rank=1, torch_rank=1] Hello world!
-[hostname=gilgamesh] Success: NeMo and PyTorch agree on rank number
-```
+[hostname=gilgamesh] nemo_rank=1, torch_rank=1 Hello world!
+<b>[hostname=gilgamesh] Success: NeMo and PyTorch agree on rank number</b>
+</pre>
 
 NeMo and PyTorch now agree on rank number.
