@@ -23,7 +23,7 @@ def main(cfg: DictConfig) -> None:
     hostname = platform.node()
     nemo_rank = get_rank()
     torch_rank = dist.get_rank()
-    print(f"[hostname={hostname}, nemo_rank={nemo_rank}, torch_rank={torch_rank}] Hello world!")
+    print(f"[hostname={hostname}], nemo_rank={nemo_rank}, torch_rank={torch_rank}] Hello world!")
 
     if(nemo_rank != torch_rank):
         print(f"[hostname={hostname}] Error: NeMo and PyTorch don't agree on rank number")
