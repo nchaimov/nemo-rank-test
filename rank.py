@@ -14,13 +14,20 @@ def do_nothing():
 
 @hydra_runner(config_path="conf", config_name="rank")
 def main(cfg: DictConfig) -> None:
+    hostname = platform.node()
+
+    try:
+        import mpi4py
+    except ImportError as ex:
+        print(f"[hostname={hostname}] Error: unable to load mpi4py: {ex}")
+        return 2
+
     trainer = Trainer(strategy=NLPDDPStrategy(), **cfg.trainer)
     if trainer.strategy.launcher is not None:
         trainer.strategy.launcher.launch(do_nothing, trainer=trainer)
         trainer.strategy.setup_environment()
     dist.barrier()
 
-    hostname = platform.node()
     nemo_rank = get_rank()
     torch_rank = dist.get_rank()
     print(f"[hostname={hostname}] nemo_rank={nemo_rank}, torch_rank={torch_rank} Hello world!")
