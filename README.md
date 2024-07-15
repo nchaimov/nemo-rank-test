@@ -32,5 +32,14 @@ Running `run-2node-mpi-with-env-var.sh` uses the `launch_nemo` script to set `OM
 
 NeMo and PyTorch now agree on rank number.
 
+In addition to using a shell script to set `$OMPI_COMM_WORLD_RANK` prior to running NeMo, another option is to use a `sitecustomize.py` file added to a directory in `$PYTHONPATH` (or otherwise loaded by Python, such as by adding it to the `site-packages` directory of a Conda or `venv` environment. Running `run-2node-mpi-with-sitecustomize.sh` uses this mechanism, and the test also passes when using that script:
+
+<pre>
+[hostname=illyad] nemo_rank=0, torch_rank=0 Hello world!
+[hostname=illyad] Success: NeMo and PyTorch agree on rank number
+[hostname=gilgamesh] nemo_rank=1, torch_rank=1 Hello world!
+<b>[hostname=gilgamesh] Success: NeMo and PyTorch agree on rank number</b>
+</pre>
+
 If the test is successful, all ranks will print the success message.
 The test is considered failed if any rank prints the error.
